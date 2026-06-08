@@ -1,18 +1,12 @@
 import os
-import subprocess
-from openai import AzureOpenAI
+from azure.ai.agents import AgentsClient
+from azure.identity import DefaultAzureCredential
 
-def get_client():
-    token = subprocess.check_output([
-        "az", "account", "get-access-token",
-        "--scope", "https://cognitiveservices.azure.com/.default",
-        "--query", "accessToken", "-o", "tsv"
-    ]).decode().strip()
-
-    return AzureOpenAI(
-        azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-        api_version="2025-01-01-preview",
-        azure_ad_token=token,
+def get_agents_client():
+    return AgentsClient(
+        endpoint=os.environ["PROJECT_ENDPOINT"],
+        credential=DefaultAzureCredential(),
     )
 
 MODEL = os.environ.get("MODEL_DEPLOYMENT_NAME", "gpt-4.1-mini")
+PROJECT_ENDPOINT = os.environ.get("PROJECT_ENDPOINT", "")
