@@ -1,0 +1,84 @@
+WEST AFRICAN PORT INTELLIGENCE GUIDE
+For African Import/Export Trade Decisions
+
+APAPA PORT (Lagos, Nigeria)
+Official Name: Apapa Container Terminal
+Operator: Nigerian Ports Authority (NPA) + Terminal Operators
+Location: Lagos, Nigeria (coordinates: 6.4496° N, 3.3621° E)
+
+Capacity: Approximately 1.2 million TEUs annually
+Status: Operational - FREQUENTLY CONGESTED
+Average Clearance Time: 7-21 days (highly variable)
+Known Issues:
+- Chronic truck congestion on Apapa-Wharf Road
+- Terminal gridlock during peak periods (Q4 especially)
+- Demurrage accumulation risk - containers not collected within free days accrue daily charges
+- Power outages affecting scanning equipment
+- Berth availability delays for vessel discharge
+
+Demurrage Free Days: Typically 5-7 days (verify with shipping line)
+Demurrage Rate: $35-75 per container per day after free period
+Port Charges: Approximately $150-300 per TEU (terminal handling)
+Documentation Required: Bill of Lading, Commercial Invoice, Packing List, Form M, SONCAP certificate, Combined Certificate of Value and Origin
+
+Best For: High-volume shipments, established importers with clearing agents
+
+TIN CAN ISLAND PORT (Lagos, Nigeria)
+Official Name: Tin Can Island Container Terminal
+Operator: Nigerian Ports Authority + Grimaldi/ENL Consortium
+Location: Lagos, Nigeria (adjacent to Apapa)
+
+Capacity: Approximately 500,000 TEUs annually
+Status: Operational - LESS CONGESTED than Apapa
+Average Clearance Time: 5-14 days
+Known Issues:
+- Smaller capacity than Apapa
+- Fewer direct shipping line calls
+- Access road also subject to congestion
+
+Port Charges: Approximately $120-250 per TEU
+Best For: Mid-size shipments, importers seeking Apapa alternative
+Advantage: Generally faster clearance, less truck congestion
+
+COTONOU PORT (Benin Republic)
+Official Name: Port Autonome de Cotonou
+Operator: Government of Benin / SOBEMAP
+Location: Cotonou, Benin Republic
+
+Status: Operational - EFFICIENT
+Average Clearance Time: 3-7 days (significantly faster than Nigerian ports)
+Transit to Lagos: 3-5 hours by road (approximately 130km)
+
+Advantages:
+- Significantly faster clearance
+- Less bureaucratic congestion
+- Lower port charges than Nigerian ports
+- Electronic manifest system well-implemented
+- Preferred by experienced Nigerian traders for time-sensitive cargo
+
+Disadvantages:
+- Customs duty still payable in Nigeria upon entry
+- Road transit risks (vehicle checkpoints)
+- Additional transport cost ($200-500 per container Lagos delivery)
+- Some re-export restrictions apply
+
+Best For: Time-sensitive cargo, importers willing to manage road transit
+Cost Comparison: Total landed cost often LOWER than Apapa despite transport due to faster clearance and lower demurrage
+
+TEMA PORT (Accra, Ghana)
+Official Name: Tema Port
+Operator: Ghana Ports and Harbours Authority
+Location: Tema, Ghana (30km east of Accra)
+
+Status: Operational - EFFICIENT
+Average Clearance Time: 3-5 days
+Transit to Lagos: Approximately 500km by road
+
+Best For: Regional distribution to West Africa (Ghana, Ivory Coast, Burkina Faso)
+Note: Long transit distance to Nigeria makes this less practical for Nigeria-bound cargo unless cargo is for regional distribution
+
+PORT SELECTION DECISION MATRIX:
+Time Priority → Cotonou (fastest) or Tin Can Island
+Cost Priority → Compare Apapa vs Cotonou total landed cost
+Volume → Apapa for large volumes (more shipping line options)
+Risk Mitigation → Cotonou or Tin Can Island (avoid Apapa congestion)

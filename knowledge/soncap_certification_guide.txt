@@ -1,0 +1,56 @@
+SONCAP CERTIFICATION GUIDE FOR NIGERIAN IMPORTERS
+Standards Organisation of Nigeria Conformity Assessment Programme
+
+WHAT IS SONCAP?
+SONCAP is a mandatory pre-shipment conformity assessment programme administered by the Standards Organisation of Nigeria (SON). It applies to regulated products being imported into Nigeria.
+
+WHY IS IT MANDATORY?
+Without a valid SONCAP Certificate, goods will be detained at Nigerian ports and cannot be cleared through customs. The Nigeria Customs Service (NCS) checks for SONCAP certificates as part of the import documentation review.
+
+WHICH PRODUCTS REQUIRE SONCAP?
+Regulated Products include but are not limited to:
+- Mobile phones and smartphones (ALL brands)
+- Laptops and computers
+- Televisions and monitors
+- Electrical cables and wires
+- Solar panels and inverters
+- Batteries (including lithium-ion)
+- Electrical switches and sockets
+- Tyres (automotive)
+- Bottled water (requires NAFDAC, not SONCAP)
+- Construction materials (cement, iron rods)
+- Generating sets
+
+HOW TO OBTAIN SONCAP CERTIFICATE:
+Step 1: Register with an accredited SONCAP certification body
+Accredited Bodies include: Intertek, Bureau Veritas, SGS, COTECNA, Alex Stewart
+
+Step 2: Product Testing
+- Laboratory testing against Nigerian Industrial Standards (NIS)
+- Testing occurs at origin (in China, before shipment)
+- Cost: $500-2000+ depending on product complexity
+- Time: 2-6 weeks
+
+Step 3: Factory Assessment (for new suppliers)
+- Auditor visits factory
+- Cost: $1500-3000
+- Time: 1-3 weeks additional
+
+Step 4: Certificate Issuance
+- Valid for one shipment or one year (product family)
+- Must be presented at port of entry
+
+IMPORTANT TIMING CONSIDERATION:
+SONCAP certification must be obtained BEFORE goods are shipped. It cannot be done after arrival in Nigeria. Plan for 4-8 weeks lead time minimum.
+
+COST ESTIMATES (indicative):
+Smartphones (new supplier): $2,000-4,000 total
+Smartphones (approved supplier): $500-1,500 per shipment
+Solar panels (new): $3,000-5,000 total
+Solar panels (approved): $800-2,000 per shipment
+
+CONTACT:
+Standards Organisation of Nigeria
+Headquarters: 52 Lome Street, Wuse Zone 7, Abuja
+SONCAP Hotline: +234-9-5234190
+Website: son.gov.ng

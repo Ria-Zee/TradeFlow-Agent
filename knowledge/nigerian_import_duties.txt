@@ -1,0 +1,60 @@
+NIGERIAN IMPORT DUTY REFERENCE GUIDE
+Source: Nigeria Customs Service Common External Tariff (CET)
+
+ELECTRONICS AND MOBILE DEVICES
+HS Code 8517.12 - Smartphones and Mobile Phones
+- Import Duty Rate: 20%
+- VAT: 7.5%
+- ECOWAS Levy: 0.5%
+- Estimated Total Tax Burden: ~28% of CIF value
+- SONCAP Certification: REQUIRED for all electronics
+- NCC Type Approval: REQUIRED for all telecommunications devices
+- NAFDAC: Not required for smartphones
+
+HS Code 8471 - Computers and Laptops
+- Import Duty Rate: 0% (under ECOWAS trade liberalization)
+- VAT: 7.5%
+- SONCAP: REQUIRED
+- NCC: Required if device has SIM capability
+
+HS Code 8542 - Electronic Integrated Circuits
+- Import Duty Rate: 0%
+- VAT: 7.5%
+
+SOLAR EQUIPMENT
+HS Code 8541.40 - Solar Cells and Panels
+- Import Duty Rate: 0% (government incentive for renewable energy)
+- VAT: 0% (VAT exempt - renewable energy policy)
+- SONCAP: REQUIRED
+- Note: Strong government incentive, one of fastest-clearing product categories
+
+HS Code 8507 - Electric Batteries (including lithium-ion for inverters)
+- Import Duty Rate: 5%
+- VAT: 7.5%
+- SONCAP: REQUIRED
+
+TEXTILE AND GARMENTS
+HS Code 61-62 - Clothing and Apparel
+- Import Duty Rate: 35% (highly protected sector)
+- VAT: 7.5%
+- NAFDAC: Not required
+- Note: High duty rate - verify profitability carefully
+
+FOOD AND AGRICULTURAL PRODUCTS
+HS Code 1006 - Rice
+- Import Duty Rate: 110% (import prohibition partially lifted)
+- Requires: NAFDAC registration, SON certification
+- Note: Subject to frequent policy changes - verify current status
+
+AUTOMOTIVE PARTS
+HS Code 8708 - Vehicle Parts
+- Import Duty Rate: 5-20% depending on part category
+- VAT: 7.5%
+- SONCAP: Required for safety-critical components
+
+IMPORTANT NOTES:
+- All rates are estimates based on Nigeria CET 2022 schedule
+- Rates subject to change - verify with Nigeria Customs Service before shipment
+- Additional levies may apply: CISS (1% of FOB), Comprehensive Import Supervision Scheme
+- Surcharge may apply for goods from certain origins
+- Contact: Nigeria Customs Service HQ, Wuse Zone 3, Abuja

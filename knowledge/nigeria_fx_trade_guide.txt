@@ -1,0 +1,54 @@
+FOREIGN EXCHANGE AND PAYMENT GUIDE FOR NIGERIAN IMPORTERS
+
+EXCHANGE RATE CONTEXT (as of mid-2026 estimates):
+- USD/NGN Official Rate (CBN): approximately 1,300-1,400 NGN per USD
+- Note: Exchange rates fluctuate daily - always verify current rates
+- Historical volatility: Naira has experienced significant devaluation since 2023 CBN unification policy
+
+FORM M REQUIREMENT:
+All imports into Nigeria above $1,000 USD value require a Form M from the Central Bank of Nigeria (CBN) through a commercial bank.
+
+What is Form M?
+Form M is a mandatory import declaration document issued by Nigerian commercial banks on behalf of the CBN. It must be obtained BEFORE goods are shipped.
+
+Process:
+1. Open import documentation with your Nigerian bank
+2. Bank submits Form M application to CBN Trade Monitoring System (TRMS)
+3. CBN issues Form M number (typically 3-7 banking days)
+4. Form M number must appear on all shipping documents
+5. Bank opens Letter of Credit or accepts supplier invoice
+
+Cost: Bank charges approximately 0.5-1% of invoice value for LC opening
+Processing Time: 5-10 banking days total
+
+PAYMENT METHODS FOR CHINESE SUPPLIERS:
+Telegraphic Transfer (TT/Wire Transfer)
+- Most common for established relationships
+- Full payment or 30% deposit + 70% on BL copy
+- Risk: Highest risk for new suppliers (payment before receipt)
+
+Letter of Credit (LC)
+- Most secure for buyer
+- Bank guarantees payment only upon compliant documents
+- Higher cost (bank charges both sides)
+- Recommended for: New suppliers, large orders above $50,000
+
+Trade Assurance (Alibaba)
+- Available for verified Alibaba suppliers
+- Escrow-style protection
+- Good for first-time Chinese supplier relationships
+- Limit: $1 million per transaction
+
+FX RISK MANAGEMENT:
+Given Naira volatility, importers should:
+1. Calculate worst-case landed cost assuming 10% further Naira depreciation
+2. Price goods to market at time of customs clearance, not at time of order
+3. Consider forward contracts for large orders (available through GTBank, Zenith, UBA)
+4. Minimize time between FX purchase and supplier payment
+
+BANKS ACTIVE IN TRADE FINANCE (Nigeria):
+- Zenith Bank (strong trade finance desk)
+- GTBank (Guaranty Trust - excellent LC processing)
+- UBA (United Bank for Africa - pan-African coverage)
+- Access Bank (strong import documentation team)
+- First Bank (largest branch network)
