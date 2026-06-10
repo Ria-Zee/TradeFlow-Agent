@@ -6,29 +6,44 @@ import json
 from datetime import datetime
 
 def get_fx_rate(base_currency: str, target_currency: str) -> dict:
-    try:
-        base = base_currency.lower()
-        target = target_currency.lower()
-        url = f"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/{base}.json"
-        with urllib.request.urlopen(url, timeout=10) as response:
-            data = json.loads(response.read())
-            rate = data[base][target]
-            return {
-                "base": base_currency.upper(),
-                "target": target_currency.upper(),
-                "rate": round(rate, 4),
-                "timestamp": datetime.now().isoformat(),
-                "source": "fawazahmed0/currency-api",
-                "status": "LIVE"
-            }
-    except Exception as e:
-        return {
-            "base": base_currency.upper(),
-            "target": target_currency.upper(),
-            "rate": None,
-            "error": str(e),
-            "status": "FAILED"
-        }
+    base = base_currency.lower()
+    target = target_currency.lower()
+    providers = [
+        (
+            "fawazahmed0/currency-api",
+            f"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/{base}.json",
+            lambda data: data[base][target],
+        ),
+        (
+            "open.er-api.com",
+            f"https://open.er-api.com/v6/latest/{base_currency.upper()}",
+            lambda data: data["rates"][target_currency.upper()],
+        ),
+    ]
+    errors = []
+    for source, url, extractor in providers:
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 TradeFlow/1.0"})
+            with urllib.request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read())
+                rate = extractor(data)
+                return {
+                    "base": base_currency.upper(),
+                    "target": target_currency.upper(),
+                    "rate": round(rate, 4),
+                    "timestamp": datetime.now().isoformat(),
+                    "source": source,
+                    "status": "LIVE"
+                }
+        except Exception as e:
+            errors.append(f"{source}: {e}")
+    return {
+        "base": base_currency.upper(),
+        "target": target_currency.upper(),
+        "rate": None,
+        "error": " | ".join(errors),
+        "status": "FAILED"
+    }
 
 def get_trade_news(product: str = "", origin: str = "", destination: str = "Nigeria") -> dict:
     search_terms = [
@@ -131,6 +146,10 @@ def get_trade_context(product: str, origin: str, destination: str) -> dict:
     news = get_trade_news(product, origin, destination)
     disruptions = check_disruption_signals(origin, destination)
     
+    fx_statuses = [fx_usd_ngn.get("status"), fx_usd_cny.get("status"), fx_cny_ngn.get("status")]
+    fx_quality = "LIVE_FX" if all(status == "LIVE" for status in fx_statuses) else "FX_UNAVAILABLE"
+    news_quality = "LIVE_NEWS" if news.get("status") == "LIVE" else "NEWS_UNAVAILABLE"
+
     return {
         "fx_rates": {
             "USD_NGN": fx_usd_ngn,
@@ -143,7 +162,7 @@ def get_trade_context(product: str, origin: str, destination: str) -> dict:
         "trade_lane": f"{origin} to {destination}",
         "product": product,
         "data_timestamp": datetime.now().isoformat(),
-        "data_quality": "LIVE_FX + LIVE_NEWS + ESTIMATED_SHIPPING"
+        "data_quality": f"{fx_quality} + {news_quality} + ESTIMATED_SHIPPING"
     }
 
 if __name__ == "__main__":
