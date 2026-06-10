@@ -29,6 +29,10 @@ def run(query: TradeQuery, live_data: LiveDataContext) -> AgentOutput:
     thread = client.threads.create()
 
     kb_results = search_knowledge(f"{query.product} import duty Nigeria tariff {query.origin}")
+    
+    from core.tools import get_trade_news
+    news_data = get_trade_news(query.product, query.origin, query.destination)
+    news_headlines = "\n".join([f"- {a['title']}" for a in news_data.get("articles", [])[:4]])
 
     fx_context = (
         f"LIVE EXCHANGE RATE DATA (verified, use exact figures):\n"
@@ -43,6 +47,7 @@ def run(query: TradeQuery, live_data: LiveDataContext) -> AgentOutput:
         f"Product: {query.product} | Quantity: {query.quantity} | "
         f"Origin: {query.origin} | Destination: {query.destination}\n\n"
         f"{fx_context}\n"
+        f"LIVE TRADE NEWS (Nigerian market context):\n{news_headlines}\n\n" 
         f"FOUNDRY IQ KNOWLEDGE BASE (African trade reference data):\n{kb_results}\n\n"
         + (f"DISRUPTION CONTEXT: {query.disruption_context}\n\n" if query.disruption_context else "")
         + "Using the live data and knowledge base above as primary sources, provide your "
