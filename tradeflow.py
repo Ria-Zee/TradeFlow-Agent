@@ -1,6 +1,5 @@
 import sys
 import os
-import concurrent.futures
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from core.models import TradeQuery, TradeBrief, LiveDataContext, TradeRecommendation
@@ -48,19 +47,8 @@ def run_agent_chain(query: TradeQuery, live_data: LiveDataContext) -> TradeBrief
     print("-"*60)
     trace("Orchestrator Node", "OK", "query parsed and decomposed into specialist tasks")
 
-    print("  [Parallel Execution Layer — 3 specialist agents running simultaneously]")
-    def run_mi(): return market_intel.run(query, live_data)
-    def run_rl(): return route_logistics.run(query, live_data, "")
-    def run_rc(): return risk_compliance.run(query, live_data, "", "")
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        future_mi = executor.submit(run_mi)
-        future_rl = executor.submit(run_rl)
-        future_rc = executor.submit(run_rc)
-        brief.market_intel = future_mi.result()
-        brief.route_logistics = future_rl.result()
-        brief.risk_compliance = future_rc.result()
-
+    print("  [Specialist Execution Layer — passing each agent the context it needs]")
+    brief.market_intel = market_intel.run(query, live_data)
     brief.route_logistics = route_logistics.run(query, live_data, brief.market_intel.analysis)
     brief.risk_compliance = risk_compliance.run(query, live_data, brief.market_intel.analysis, brief.route_logistics.analysis)
 
@@ -124,8 +112,8 @@ def print_traceability_report(initial_brief: TradeBrief, revised_brief=None):
     print("\n" + "="*60)
     print("DECISION TRACEABILITY REPORT")
     print("="*60)
-    print(f"Live USD/NGN: {initial_brief.live_data.usd_ngn_rate} (LIVE)")
-    print(f"Live USD/CNY: {initial_brief.live_data.usd_cny_rate} (LIVE)")
+    print(f"USD/NGN: {initial_brief.live_data.usd_ngn_rate} ({'LIVE' if initial_brief.live_data.usd_ngn_rate else 'UNAVAILABLE'})")
+    print(f"USD/CNY: {initial_brief.live_data.usd_cny_rate} ({'LIVE' if initial_brief.live_data.usd_cny_rate else 'UNAVAILABLE'})")
     print(f"Shipping: USD {initial_brief.live_data.shipping_min}-{initial_brief.live_data.shipping_max} (ESTIMATED)")
     print(f"Data Quality: {initial_brief.live_data.data_quality}")
     print(f"Timestamp: {initial_brief.live_data.data_timestamp}")
@@ -172,8 +160,8 @@ def run_tradeflow(raw_query: str, product: str = "goods", quantity: int = 0,
 
     print("\nPhase 0: Fetching live market intelligence...")
     live_data, news, disruptions = fetch_live_data(product, origin, destination_port)
-    print(f"  Live USD/NGN: {live_data.usd_ngn_rate} (LIVE)")
-    print(f"  Live USD/CNY: {live_data.usd_cny_rate} (LIVE)")
+    print(f"  USD/NGN: {live_data.usd_ngn_rate} ({'LIVE' if live_data.usd_ngn_rate else 'UNAVAILABLE'})")
+    print(f"  USD/CNY: {live_data.usd_cny_rate} ({'LIVE' if live_data.usd_cny_rate else 'UNAVAILABLE'})")
     print(f"  Shipping: USD {live_data.shipping_min}-{live_data.shipping_max} (ESTIMATED)")
     print(f"  Disruption Risk: {disruptions.get('risk_level')}")
     print(f"  News Articles: {news.get('count', 0)} live headlines")

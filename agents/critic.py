@@ -1,5 +1,4 @@
-from azure.ai.agents.models import MessageRole
-from core.client import get_agents_client, MODEL
+from core.client import MessageRole, get_agents_client, is_agent_service_available, MODEL
 from core.models import TradeQuery, AgentOutput, ConfidenceLevel, TradeRecommendation, LiveDataContext
 import json
 
@@ -24,6 +23,10 @@ INSTRUCTIONS = (
 )
 
 def run(query: TradeQuery, live_data: LiveDataContext, market_intel, route_logistics, risk_compliance) -> tuple:
+    if not is_agent_service_available():
+        from core.local_analysis import critic as local_critic
+        return local_critic(query, live_data, market_intel, route_logistics, risk_compliance)
+
     client = get_agents_client()
     agent = client.create_agent(
         model=MODEL,

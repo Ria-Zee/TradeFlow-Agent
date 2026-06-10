@@ -17,7 +17,9 @@ def monitor_once(origin="China", destination_port="apapa", product="goods") -> d
 
     auto_alerts = []
 
-    if FX_BASELINE is None:
+    if not current_rate:
+        auto_alerts.append("FX ALERT: USD/NGN live rate unavailable — re-analysis recommended when data returns")
+    elif FX_BASELINE is None or FX_BASELINE == 0:
         FX_BASELINE = current_rate
     else:
         change_pct = abs(current_rate - FX_BASELINE) / FX_BASELINE
