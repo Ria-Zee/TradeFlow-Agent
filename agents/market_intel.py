@@ -1,71 +1,98 @@
 from azure.ai.agents.models import MessageRole
 from core.client import get_agents_client, MODEL
-from core.models import TradeQuery, AgentOutput
+from core.models import TradeQuery, AgentOutput, ConfidenceLevel, LiveDataContext
+from core.search import search_knowledge
+import json
 
 INSTRUCTIONS = (
-    "You are TradeFlow Market Intelligence Agent, running on Microsoft Azure AI Foundry. "
-    "Your role is to analyze market conditions for African import/export trade decisions. "
-    "You are NOT a calculator. You are an intelligence analyst. "
-    "Always flag estimates as ESTIMATED. Never fabricate specific tariff rates or exchange rates as exact facts. "
-    "Always distinguish between what you know and what you are estimating. "
-    "Be specific to Nigerian/African trade context. "
-    "End every analysis with a CONFIDENCE LEVEL: HIGH, MEDIUM, or LOW with justification."
+    "You are a Trade Economist and Market Intelligence Specialist. "
+    "You evaluate the commercial viability of proposed trade activities. "
+    "Primary Objective: Determine whether the proposed trade activity is financially attractive. "
+    "Analyze: exchange rates, landed cost estimates, duties and tariffs, demand signals, profitability indicators, pricing assumptions, market conditions. "
+    "Questions To Answer: Is the trade economically viable? What are the primary cost drivers? What assumptions have the greatest impact? What information is missing? "
+    "Required Output: Economic Assessment, Cost Drivers, Financial Risks, Assumptions, Confidence Level. "
+    "Guardrails: Never fabricate market data. Clearly identify estimated calculations. Differentiate facts from projections. "
+    "You will receive LIVE exchange rate data and FOUNDRY IQ knowledge base excerpts - use these as your primary sources. "
+    "Return your analysis as valid JSON: "
+    '{"economic_assessment": "string", "cost_drivers": ["string"], "financial_risks": ["string"], '
+    '"key_findings": ["string"], "assumptions": ["string"], "confidence": "HIGH|MEDIUM|LOW", '
+    '"confidence_rationale": "string", "data_sources": ["string"]}'
 )
 
-def run(query: TradeQuery) -> AgentOutput:
+def run(query: TradeQuery, live_data: LiveDataContext) -> AgentOutput:
     client = get_agents_client()
-
     agent = client.create_agent(
         model=MODEL,
         name="tradeflow-market-intel",
         instructions=INSTRUCTIONS,
     )
-
     thread = client.threads.create()
 
+    kb_results = search_knowledge(f"{query.product} import duty Nigeria tariff {query.origin}")
+
+    fx_context = (
+        f"LIVE EXCHANGE RATE DATA (verified, use exact figures):\n"
+        f"- USD/NGN: {live_data.usd_ngn_rate} (LIVE as of {live_data.data_timestamp})\n"
+        f"- USD/CNY: {live_data.usd_cny_rate} (LIVE)\n"
+        f"- CNY/NGN: {live_data.cny_ngn_rate} (LIVE)\n"
+        f"- Shipping estimate: USD {live_data.shipping_min}-{live_data.shipping_max} per container (ESTIMATED)\n"
+    )
+
     prompt = (
-        f"Analyze market conditions for this trade query: {query.raw}\n\n"
+        f"Trade Query: {query.raw}\n"
         f"Product: {query.product} | Quantity: {query.quantity} | "
         f"Origin: {query.origin} | Destination: {query.destination}\n\n"
-        "Provide:\n"
-        "1. EXCHANGE RATE CONTEXT: USD/NGN environment and volatility risk. Flag as ESTIMATED.\n"
-        "2. IMPORT DUTY ESTIMATE: HS code category and estimated duty rate. Flag as ESTIMATED.\n"
-        "3. MARKET DEMAND SIGNAL: Is there strong demand for this product?\n"
-        "4. PRICING INTELLIGENCE: Estimated landed cost range per unit. Flag as ESTIMATED.\n"
-        "5. ASSUMPTIONS: List every assumption explicitly.\n"
-        "6. CONFIDENCE LEVEL: HIGH, MEDIUM, or LOW with justification."
+        f"{fx_context}\n"
+        f"FOUNDRY IQ KNOWLEDGE BASE (African trade reference data):\n{kb_results}\n\n"
+        + (f"DISRUPTION CONTEXT: {query.disruption_context}\n\n" if query.disruption_context else "")
+        + "Using the live data and knowledge base above as primary sources, provide your "
+        "Economic Assessment, Cost Drivers, Financial Risks, Assumptions, and Confidence Level. "
+        "Cite the knowledge base where relevant. Return as valid JSON."
     )
 
-    client.messages.create(
-        thread_id=thread.id,
-        role=MessageRole.USER,
-        content=prompt,
-    )
-
-    run = client.runs.create_and_process(
-        thread_id=thread.id,
-        agent_id=agent.id,
-    )
+    client.messages.create(thread_id=thread.id, role=MessageRole.USER, content=prompt)
+    client.runs.create_and_process(thread_id=thread.id, agent_id=agent.id)
 
     messages = client.messages.list(thread_id=thread.id)
-    analysis = ""
+    raw_analysis = ""
     for msg in messages:
         if msg.text_messages:
-            analysis = msg.text_messages[-1].text.value
+            raw_analysis = msg.text_messages[-1].text.value
             break
 
     client.delete_agent(agent.id)
 
-    confidence = "MEDIUM"
-    if "CONFIDENCE LEVEL: HIGH" in analysis.upper():
-        confidence = "HIGH"
-    elif "CONFIDENCE LEVEL: LOW" in analysis.upper():
-        confidence = "LOW"
+    try:
+        clean = raw_analysis.strip()
+        if clean.startswith("```"):
+            clean = clean.split("```")[1]
+            if clean.startswith("json"):
+                clean = clean[4:]
+        parsed = json.loads(clean.strip())
+        confidence = ConfidenceLevel(parsed.get("confidence", "MEDIUM"))
+        analysis = (
+            f"ECONOMIC ASSESSMENT:\n{parsed.get('economic_assessment', '')}\n\n"
+            f"COST DRIVERS:\n" + "\n".join(f"- {d}" for d in parsed.get("cost_drivers", [])) +
+            f"\n\nFINANCIAL RISKS:\n" + "\n".join(f"- {r}" for r in parsed.get("financial_risks", []))
+        )
+        key_findings = parsed.get("key_findings", [])
+        assumptions = parsed.get("assumptions", [])
+        risk_items = parsed.get("financial_risks", [])
+        data_sources = parsed.get("data_sources", [])
+    except Exception:
+        confidence = ConfidenceLevel.MEDIUM
+        analysis = raw_analysis
+        key_findings = []
+        assumptions = ["Parse error - see raw analysis"]
+        risk_items = []
+        data_sources = []
 
     return AgentOutput(
-        agent_name="Market Intelligence Agent (Foundry)",
+        agent_name="Market Intelligence Agent (Foundry IQ + Live FX)",
         analysis=analysis,
         confidence=confidence,
-        assumptions=["Exchange rates estimated", "Duty rates require Nigeria Customs verification"],
-        flags=["EXCHANGE_RATE_ESTIMATED", "DUTY_RATE_ESTIMATED", "FOUNDRY_AGENT_SERVICE"]
+        assumptions=assumptions + [f"Live USD/NGN: {live_data.usd_ngn_rate}"],
+        flags=["LIVE_FX_DATA", "FOUNDRY_IQ_GROUNDED", "FOUNDRY_AGENT_SERVICE"],
+        risk_items=risk_items,
+        key_findings=key_findings,
     )
