@@ -1,0 +1,25 @@
+{"timestamp": "2026-06-11T19:14:01.329835", "level": "INFO", "component": "CYCLE", "message": "Starting health cycle 1", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.330051", "level": "INFO", "component": "ENV", "message": "Validating environment variables", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.330193", "level": "OK", "component": "ENV", "message": "PROJECT_ENDPOINT present", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.330276", "level": "OK", "component": "ENV", "message": "MODEL_DEPLOYMENT_NAME present", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.330356", "level": "OK", "component": "ENV", "message": "AZURE_OPENAI_ENDPOINT present", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.330423", "level": "OK", "component": "ENV", "message": "SEARCH_ENDPOINT present", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.331282", "level": "INFO", "component": "SYSTEM", "message": "Checking module imports", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.369926", "level": "OK", "component": "IMPORT", "message": "core.tools loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.372958", "level": "OK", "component": "IMPORT", "message": "core.search loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.386747", "level": "OK", "component": "IMPORT", "message": "core.models loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.388607", "level": "OK", "component": "IMPORT", "message": "core.disagreement loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.391201", "level": "OK", "component": "IMPORT", "message": "agents.market_intel loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.392454", "level": "OK", "component": "IMPORT", "message": "agents.route_logistics loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.394032", "level": "OK", "component": "IMPORT", "message": "agents.risk_compliance loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.396282", "level": "OK", "component": "IMPORT", "message": "agents.critic loaded", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.396386", "level": "INFO", "component": "FX", "message": "Checking FX pipeline", "meta": {}}
+{"timestamp": "2026-06-11T19:14:01.459530", "level": "OK", "component": "FX", "message": "FX pipeline healthy", "meta": {"rate": 1359.3858}}
+{"timestamp": "2026-06-11T19:14:01.459682", "level": "INFO", "component": "SEARCH", "message": "Checking knowledge base", "meta": {}}
+{"timestamp": "2026-06-11T19:14:03.122697", "level": "OK", "component": "SEARCH", "message": "Search operational", "meta": {"length": 1668}}
+{"timestamp": "2026-06-11T19:14:03.122834", "level": "INFO", "component": "FOUNDRY", "message": "Testing Foundry Agent Service", "meta": {}}
+{"timestamp": "2026-06-11T19:14:12.038691", "level": "OK", "component": "FOUNDRY", "message": "Foundry Agent Service healthy", "meta": {}}
+{"timestamp": "2026-06-11T19:14:12.040157", "level": "INFO", "component": "NEWS", "message": "Checking live news feed", "meta": {}}
+{"timestamp": "2026-06-11T19:14:13.115599", "level": "OK", "component": "NEWS", "message": "6 articles available", "meta": {}}
+{"timestamp": "2026-06-11T19:14:13.116019", "level": "INFO", "component": "SMOKE", "message": "Running smoke test", "meta": {}}
+{"timestamp": "2026-06-11T19:14:14.865764", "level": "OK", "component": "SMOKE", "message": "Pipeline verified", "meta": {}}
